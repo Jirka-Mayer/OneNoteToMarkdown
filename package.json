@@ -1,0 +1,8 @@
+{
+    "devDependencies": {
+        "gulp": "",
+        "gulp-concat": "",
+        "gulp-uglify": "",
+        "gulp-wrap": ""
+    }
+}

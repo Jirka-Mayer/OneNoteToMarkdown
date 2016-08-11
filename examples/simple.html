@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OneNote to Markdown - Simple Example</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        #inputDiv {
+            border: 2px solid black;
+            padding: 10px;
+
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #outputPre {
+            border: 2px solid #eee;
+            padding: 10px;
+
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>OneNote to Markdown</h1>
+
+    <ol>
+        <li>Copy a OneNote content to the clipboard. <kbd>Ctrl + C</kbd></li>
+        <li>Paste it into the box below. <kbd>Ctrl + V</kbd></li>
+        <li>Below will be displayed the markdown output.</li>
+        <li>Open dev tools to see details. <kbd>F12</kbd></li>
+    </ol>
+
+    <div id="inputDiv" contenteditable="true"></div>
+
+    <pre id="outputPre">Output...</pre>
+
+    <script src="../dist/oneNoteToMarkdown.js"></script>
+
+    <script>
+
+        // get elements
+        var inputDiv = document.getElementById("inputDiv")
+        var outputPre = document.getElementById("outputPre")
+
+        // allow debugging messages
+        OneNoteToMarkdown.options.debug = true
+
+        // focus the input
+        inputDiv.focus()
+
+        // handle the paste event
+        inputDiv.addEventListener("paste", function(e)
+        {
+            // clear the input box
+            inputDiv.innerHTML = ""
+
+            // get the clipboard data
+            try
+            {
+                var md = OneNoteToMarkdown.handlePaste(e)
+            }
+            catch (error)
+            {
+                inputDiv.innerHTML = error
+                console.error(error)
+
+                e.stopPropagation()
+                e.preventDefault()
+                return false
+            }
+
+            // print out the markdown
+            outputPre.innerText = md
+        })
+
+    </script>
+
+</body>
+</html>
