@@ -11,6 +11,12 @@ OneNoteToMarkdown.convert = function(html)
     var oneNoteVersion = OneNoteToMarkdown.options.forcedVersion
     var versionMatches = null
 
+    if (oneNoteVersion !== null)
+    {
+        OneNoteToMarkdown.options.supportsOneNoteVersion(oneNoteVersion)
+        versionMatches = OneNoteToMarkdown.options.oneNoteVersions[oneNoteVersion]
+    }
+
     // mardown builder
     var builder = new OneNoteToMarkdown.MDBuilder()
 
